@@ -1,0 +1,83 @@
+{{> header}}
+<style>
+  input, .btn {
+    margin: 10px 3px !important;
+  }
+
+  input {
+    width: 90% !important;
+    display: inline-block !important;
+  }
+
+  #unique {
+    width: 100%;
+    display: block; 
+  }
+
+  .remove {
+    display: inline-block;
+    margin: 0 5px 0 0;
+  }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="container">
+  <div class="col-md-6 col-md-offset-3">
+    <h2>{{title}}</h2>
+    <hr>
+
+    <form method="POST">
+      <label>Poll title</label>
+      <input type="text" id="unique" class="form-control" name="poll_title">
+
+      <label>Options</label>
+      <br>
+
+      
+      <button class="btn btn-danger remove" id="1">X</button>
+      <input type="text" class="form-control" name="poll_option_1" placeholder="Add option here...">
+      <button class="btn btn-danger remove" id="2">X</button>
+      <input type="text" class="form-control" name="poll_option_2" placeholder="Add option here...">
+      <button class="btn btn-danger remove" id="3">X</button>
+      <input type="text" class="form-control" name="poll_option_3" placeholder="Add option here...">
+
+      <button class="btn btn-default btn-block" id="add_option">+ Add Option</button>
+
+      <button class="btn btn-success btn-block" type="submit" value="created" name="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+<script>
+  var p_opts = 4,
+  count = 3;
+  $(document).on('click', '#add_option', function (e) {
+    e.preventDefault();
+    var html = '<button class="btn btn-danger remove" id="'+ p_opts +'">X</button>';
+    html += '<input type="text" class="form-control" name="poll_option_' + p_opts + '" placeholder="Add option here...">';
+
+    $(html).insertBefore("#add_option");
+    p_opts++;
+    count++;
+  });
+
+  $(document).on('click', '.remove', function (e) {
+    e.preventDefault();
+    var thisID = $(this).attr('id');
+    
+    if(count > 2) {
+      $('input[name="poll_option_'+ thisID +'"]').remove();
+      $(this).remove();
+      count--;
+    }
+    else {
+      alert('There must be at least 2 options!');
+    }
+    
+  });
+</script>
+
+{{> footer}}

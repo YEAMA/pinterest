@@ -1,0 +1,93 @@
+{{> header}}
+
+<div class="row">
+  <div class="col-sm-6 col-md-12">
+
+    <div class="grid">
+      
+      {{#each pins}}
+      <div class="grid-item">
+        <upper>
+          <img src="{{owner_img}}">
+          <span>{{owner_name}}</span>
+        </upper>
+        
+        <button class="{{user_star}}">{{stars}} <i class="fa fa-star-o" aria-hidden="true"></i></button>
+
+        <img src="{{img_src}}">
+        {{#if comment}}
+          <p>{{comment}}</p>
+        {{/if}}
+        
+      </div>
+      {{~/each}}
+
+    </div>
+
+  </div>
+</div>
+
+
+<style>
+  .grid-item {
+    width: 25%;
+    border: 1px solid silver;
+    border-radius: 7px;
+  }
+  .grid>.grid-item>img {
+    width: 100%;
+  }
+  .grid>.grid-item>p {
+    text-align: center;
+    font-size: 12px;
+    padding-top: 10px;
+  }
+  upper {
+    width: 100%;
+    margin:0;
+    position: relative
+  }
+
+  upper>img {
+    width: 36px;
+    border: 1px solid white;
+    border-radius: 7px;
+    float: right;
+    margin: 2px 7px 2px 2px;
+  }
+
+  upper>span {
+    font-size: 12px;
+    float: right;
+    padding: 12px 15px;
+  }
+
+  .grid-item>button {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 100px;
+    height: 30px;
+    border-radius: 7px;
+    border: none;
+    background-color: transparent;
+    color: sienna;
+    font-size: 16px;
+    margin:0;
+    text-align: center
+  }
+</style>
+
+
+<script src="/js/jquery.js"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script>
+  $('.grid').masonry({
+  // options
+  itemSelector: '.grid-item',
+  columnWidth: 50
+});
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{{> footer}}

@@ -1,0 +1,68 @@
+{{> header}}
+
+{{#if script}}
+<script>alert("{{script}}")</script>
+{{/if}}
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>{{poll_title}}</h3>
+            <h4>By {{creator}}</h4>
+        </div>
+
+        <div class="col-md-6 col-md-offset-3">
+            <a class="btn btn-primary" target="_blank"
+  href="https://twitter.com/intent/tweet?text=Let's%20vote%20here!:%20{{myurl}}">
+Share on Twitter</a>
+<p></p>
+            {{#if showResults}}
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Option');
+                    data.addColumn('number', 'Votes');
+                    data.addRows([
+
+                    {{#each options}}
+                    ['{{value}}', {{votes}}],
+                    {{~/each}}
+                    ]);
+
+                    var options = {'width':500,
+                                'height':400};
+                    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+                }
+                </script>
+                <div id="chart_div"></div>
+            {{^}}
+            <form method="POST">
+                 <select class="form-control" style="width: 70%; display: inline-block; margin: 0 20px 0 0" name="option">
+                     <option value="null">Click to choose</option>
+                {{#each options}}
+                        <option value="{{value}}">{{value}}</option>
+                {{~/each}}
+                </select>
+                {{#if addOption}}
+                <hr>
+                <input type="checkbox" name="action" value="add_option" id="add">
+                <label for="add">Add another option</label>
+                <input type="text" name="added_option" class="form-control" placeholder="Add option here">
+                <br>
+                {{/if}}
+                <button class="btn btn-success" type="submit" value="voted" name="submit">Vote!</button>
+            </form>
+            {{/if}}
+
+        </div>
+
+    </div>
+</div>
+
+
+{{> footer}}
