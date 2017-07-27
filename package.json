@@ -1,39 +1,40 @@
 {
-    "name": "pinterest",
-    "version": "1.0.0",
-    "description": "Pinterest Clone for FCC",
-    "main": "server.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/johnstonbl01/clementinejs-fcc"
-    },
-    "keywords": [
-        "MongoDB",
-        "Mongoose",
-        "full stack",
-        "Express",
-        "Node",
-        "javascript",
-        "boilerplate"
-    ],
-    "scripts": {
-        "start": "node server.js"
-    },
-    "engines": {
-        "node": "v6.11.1"
-    },
-    "author": "YEAMA",
-    "license": "MIT",
-    "dependencies": {
-        "axios": "^0.16.2",
-        "body-parser": "^1.17.2",
-        "dotenv": "^1.2.0",
-        "express": "^4.12.4",
-        "express-session": "^1.11.3",
-        "hbs": "^4.0.1",
-        "lodash": "^4.17.4",
-        "mongodb": "^2.2.28",
-        "mongoose": "^4.1.0",
-        "node-twitter-api": "^1.8.0"
-    }
+  "name": "pinterest",
+  "version": "1.0.0",
+  "description": "Pinterest Clone for FCC",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnstonbl01/clementinejs-fcc"
+  },
+  "keywords": [
+    "MongoDB",
+    "Mongoose",
+    "full stack",
+    "Express",
+    "Node",
+    "javascript",
+    "boilerplate"
+  ],
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "v6.11.1"
+  },
+  "author": "YEAMA",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "dotenv": "^1.2.0",
+    "express": "^4.12.4",
+    "express-session": "^1.11.3",
+    "hbs": "^4.0.1",
+    "lodash": "^4.17.4",
+    "mongodb": "^2.2.28",
+    "mongoose": "^4.1.0",
+    "node-twitter-api": "^1.8.0",
+    "validator": "^8.0.0"
+  }
 }

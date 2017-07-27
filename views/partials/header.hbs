@@ -16,10 +16,10 @@
 
     <!-- Custom CSS -->
     <style>
-    body {
-        padding-top: 70px;
-        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    }
+        body {
+            padding-top: 70px;
+            /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+        }
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -48,6 +48,14 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                {{#if username}}
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/new" style="color: gold">+ New Pin</a>
+                    </li>
+                </ul>
+                {{/if}}
                 <ul class="nav navbar-nav pull-right">
                     {{#if username}}
                     <li>

@@ -6,13 +6,17 @@
     <div class="grid">
       
       {{#each pins}}
-      <div class="grid-item">
+      <div class="grid-item" id="pin_{{_id}}">
         <upper>
-          <img src="{{owner_img}}">
-          <span>{{owner_name}}</span>
+          <img src="{{owner.img}}">
+          <span>{{owner.name}}</span>
         </upper>
         
-        <button class="{{user_star}}">{{stars}} <i class="fa fa-star-o" aria-hidden="true"></i></button>
+        <button class="starBtn {{user_starred}}" title="Star this pin" data-pin-id={{_id}}><span class="noStar">{{stars}}</span> <i class="fa fa-star-o" aria-hidden="true"></i></button>
+
+        {{#if userIsOwner}}
+        <button class="RmBtn" style="left: 51px"  data-pin-id={{_id}} title="Remove this pin"><i class="fa fa-remove" aria-hidden="true"></i></button>
+        {{/if}}
 
         <img src="{{img_src}}">
         {{#if comment}}
@@ -30,7 +34,7 @@
 
 <style>
   .grid-item {
-    width: 25%;
+    width: 235px;
     border: 1px solid silver;
     border-radius: 7px;
   }
@@ -39,8 +43,9 @@
   }
   .grid>.grid-item>p {
     text-align: center;
-    font-size: 12px;
+    font-size: 16px;
     padding-top: 10px;
+    color: dodgerblue;
   }
   upper {
     width: 100%;
@@ -57,24 +62,28 @@
   }
 
   upper>span {
-    font-size: 12px;
+    font-size: 14px;
     float: right;
     padding: 12px 15px;
   }
 
   .grid-item>button {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 100px;
+    top: 7px;
+    left: 8px;
     height: 30px;
     border-radius: 7px;
     border: none;
     background-color: transparent;
     color: sienna;
-    font-size: 16px;
+    font-size: 14px;
     margin:0;
     text-align: center
+  }
+
+  .clicked {
+    background-color: gold !important;
+    color: white !important;
   }
 </style>
 
@@ -83,10 +92,66 @@
 <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script>
   $('.grid').masonry({
-  // options
-  itemSelector: '.grid-item',
-  columnWidth: 50
-});
+    // options
+    itemSelector: '.grid-item',
+    columnWidth: 50
+  });
+
+  $(window).load(function(){
+      $('img').each(function(){
+          var height = $(this).height();
+          if(height <= 30) {
+              $(this).attr('src', '../img/404.png')
+          }
+      });
+  });
+
+  $(document).ready(function () {
+   
+    $(document).on('click', '.starBtn', function(e) {
+      e.preventDefault();
+
+      var thisButton = this;
+      var pin_id = $(thisButton).attr('data-pin-id');
+
+      $(`#pin_${pin_id}>.starBtn`).toggleClass('disabled');
+      $(`#pin_${pin_id}>.starBtn`).attr('disabled', 'disabled');
+
+      
+      $.get(`/star/${pin_id}`, function(response) {
+
+        if(response) {
+          $(thisButton).toggleClass('clicked');
+          $(`#pin_${pin_id}>.starBtn>.noStar`).html(response.likes);
+        }
+
+        $(`#pin_${pin_id}>.starBtn`).toggleClass('disabled');
+        $(`#pin_${pin_id}>.starBtn`).attr('disabled', false);
+      });
+
+    });
+
+
+    $(document).on('click', '.RmBtn', function(e) {
+      e.preventDefault();
+
+      var thisButton = this;
+      var pin_id = $(thisButton).attr('data-pin-id');
+
+      $(`#pin_${pin_id}>.RmBtn`).toggleClass('disabled');
+      $(`#pin_${pin_id}>.RmBtn`).attr('disabled', 'disabled');
+
+      
+      $.get(`/star/rm/${pin_id}`, function(response) {
+        if(response.success) {
+          $(`#pin_${pin_id}`).fadeOut(250);
+          $(`#pin_${pin_id}`).remove();
+        }
+      });
+
+    });
+  });
+
 </script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
